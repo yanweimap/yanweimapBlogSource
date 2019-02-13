@@ -108,7 +108,7 @@ hexo的图片可以用网络图片，也可以用本地的图片
 
 # 四.超链接
 
-超链接分行内式和参考式
+超链接分行内式和引用式
 
 ## 1.行内式语法：
 
@@ -132,15 +132,15 @@ Hexo链接 <http:www.hexo.io/zh-cn>
 [hexo](https://hexo.io/zh-cn/)  
 Hexo链接 <http:www.hexo.io/zh-cn>
 
-## 2.参考式语法(这个本地预览不成功，需要再试试)
-
+## 2.引用语法
+定义的地方不会显示，只有引用的地方会显示
 ```
-[baidu][2]
-[2]:http://www.baidu.com
+[baidu]:http://www.baidu.com
+[baidu]
 ```
 
-[baidu][2]
-[2]:http://www.baidu.com
+[baidu]:http://www.baidu.com
+[baidu]
 
 # 五.列表
 
