@@ -93,18 +93,19 @@ hexo的图片可以用网络图片，也可以用本地的图片
 网络图片语法示例：
 
 ```
-![candy1](http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170808/941de23f8d5940939705df6cc3a9e612_th.jpg "糖果示例1")
+![cake1](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550820462&di=821f58e09470251cf8811895001cc307&imgtype=jpg&er=1&src=http%3A%2F%2F91cycn.37cy.com%2Fnet91cycn%2F1706%2F17-06-29%2F201706290937009.jpg "蛋糕1")
 ```
 
-![candy1](http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170808/941de23f8d5940939705df6cc3a9e612_th.jpg "糖果示例1") 需要注意标点符号一定要用英文，否则生成的图片可能只是一个链接，没办法预览
+![cake1](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550820462&di=821f58e09470251cf8811895001cc307&imgtype=jpg&er=1&src=http%3A%2F%2F91cycn.37cy.com%2Fnet91cycn%2F1706%2F17-06-29%2F201706290937009.jpg "蛋糕1")  
+需要注意标点符号一定要用英文，否则生成的图片可能只是一个链接，没办法预览
 
 本地图片语法示例（图片路径直接用当前markdown文件所在相对目录即可）：
 
 ```
-![candy2](image/candy2.jpg "糖果示例2")
+![cake2](image/cake2.jpeg "蛋糕示例2")
 ```
 
-![candy2](image/candy2.jpg "糖果示例2")
+![cake2](markdown/cake2.jpeg "蛋糕示例2")
 
 # 四.超链接
 
