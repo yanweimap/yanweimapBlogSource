@@ -17,6 +17,7 @@ title: 定位常用概念与术语
 是利用地球静止轨道卫星建立的地区性广域差分增强系统  
 **QZSS** - Quasi-Zenith Satellite System 准天顶卫星系统  
 日本开发的以三颗人造卫星透过时间转移完成全球定位系统区域性功能的卫星扩增系统  
+**IRNSS** - Indian Regional Navigation Satellite System 印度区域导航卫星系统  
 **GANSS** - Galileo and Additional Navigation Satellite Systems  伽利略和附加导航卫星系统  
 **AGNSS** - Assisted GNSS 辅助全球定位  
 **AGPS** - Assisted Global Positioning System 辅助GPS  
@@ -28,6 +29,57 @@ title: 定位常用概念与术语
 **OTDOA** - Observed Time Difference of Arrival(到达时间差定位法)  
 **ECID** - Ehance Community ID 增强型小区定位  
 **MBS** - Metropolitan Beacon System 城市移动信标系统
+## GNSS各定位系统频段
+GPS（US）
+
+|频段|频率（MHz）|
+|:--:|:--|
+|L1-C/A,L1C|1575.42|
+|L2|1227.60|
+|L5|1176.45|
+
+Glonass（苏联）
+
+|频段|频率（MHz）|
+|:--:|:--|
+|L1(FDMA)|1602 + n*0.5625|
+|L2(FDMA)|1246 + n*0.4375|
+|L3(CDMA)|1202.025|
+
+Galieo（欧洲）
+
+|频段|频率（MHz）|
+|:--:|:--|
+|E1|1575.42|
+|E5|1191.795|
+|E5a|1176.45|
+|E5b|1207.14|
+|E6|1278.75|
+
+北斗
+
+|频段|频率（MHz）|
+|:--:|:--|
+|B1-2|1589.742|
+|B1I|1561.098|
+|B3|1268.52|
+|B2I|1207.14|
+
+QZSS（Japan）
+
+|频段|频率（MHz）|
+|:--:|:--|
+|L1-C/A,L1C,L1-SAIF|1575.42|
+|L2C|1227.60|
+|L5|1176.45|
+|LEX|1278.75|
+
+IRNSS（Indian）
+
+|频段|频率（MHz）|
+|:--:|:--|
+|L5|1176.45|
+|S|2492.028|
 
 ## 常用概念  
 Longitude   经度  
