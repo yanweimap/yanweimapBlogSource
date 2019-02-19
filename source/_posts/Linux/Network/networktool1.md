@@ -49,9 +49,115 @@ traceroute [ -46dFITnreAUDV ] [ -f first_ttl ] [ -g gate,... ] [ -i device ] [ -
 # netstat
 ## netstat介绍
 netstat列出系统上所有的网络套接字连接情况，包括 tcp, udp 以及 unix 套接字，另外它还能列出处于监听状态（即等待接入请求）的套接字。如果你想确认系统上的 Web 服务有没有起来，你可以查看80端口有没有打开。以上功能使 netstat 成为网管和系统管理员的必备利器。  
+## netstat常见用法
+1. -a 显示所有监听或非监听socket网络链接
+```
+$ netstat -a
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:netbios-ssn     0.0.0.0:*               LISTEN     
+tcp        0      0 localhost:5037          0.0.0.0:*               LISTEN     
+tcp        0      0 localhost:domain        0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:ssh             0.0.0.0:*               LISTEN     
+tcp        0      0 localhost:ipp           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:microsoft-ds    0.0.0.0:*               LISTEN     
+tcp        0      1 NSGWD180027:44946       10.1.6.6:domain         SYN_SENT   
+tcp        0      0 NSGWD180027:60634       113.96.233.144:http     CLOSE_WAIT
+tcp        0      0 NSGWD180027:45626       47.95.47.253:https      ESTABLISHED
+...
+```
+2. -r 显示IP路由表(跟**route**指令显示内容一样)
+```
+$ netstat -r
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         _gateway        0.0.0.0         UG        0 0          0 enp1s0
+10.1.152.0      0.0.0.0         255.255.255.0   U         0 0          0 enp1s0
+link-local      0.0.0.0         255.255.0.0     U         0 0          0 enp1s0
+```
+3. -i 显示网络接口(查看网络接口相关建议使用**ifconfig**)
+```
+$ netstat -i
+Kernel Interface table
+Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+enp1s0    1500  6400427      0      0 0       2132187      0      0      0 BMRU
+lo       65536   532597      0      0 0        532597      0      0      0 LRU
+```
+4. -s 显示网络统计信息
+```
+$ netstat -s
+Ip:
+    Forwarding: 2
+    4803573 total packets received
+    9283 with invalid addresses
+    0 forwarded
+    0 incoming packets discarded
+    4665596 incoming packets delivered
+    2659745 requests sent out
+    2 outgoing packets dropped
+    511 dropped because of missing route
+    ...
+```
+5. -n 不解析名称,直接显示IP地址()
+```
+netstat -nv
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 10.1.152.229:43548      203.208.41.47:443       ESTABLISHED
+tcp        0      1 10.1.152.229:52668      10.128.161.27:445       SYN_SENT   
+tcp        0      0 10.1.152.229:56046      96.43.145.26:443        ESTABLISHED
+tcp        0      1 10.1.152.229:52584      10.128.161.27:445       SYN_SENT   
+tcp        0      1 10.1.152.229:54060      216.58.200.14:443       SYN_SENT   
+tcp        0      1 10.1.152.229:60748      10.128.161.27:139       SYN_SENT   
+```
+
+6. -p 显示套接字的pid程序名称
+```
+$ netstat -np |head -n 10
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 10.1.152.229:37044      113.96.230.37:443       ESTABLISHED -                   
+tcp        0      1 10.1.152.229:42914      216.58.199.14:443       SYN_SENT    29400/firefox       
+tcp        0      1 10.1.152.229:42916      216.58.199.14:443       SYN_SENT    29400/firefox
+```
+7. -l 仅显示处于监听状态的网络连接
+8. -t/-u 显示tcp/udp连接
+9. -npe 同时显示用户和进程信息
+```
+$netstat -nep
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       User       Inode      PID/Program name
+tcp        0      1 10.1.152.229:51524      172.217.24.46:443       SYN_SENT    1000       3498922041 29400/firefox       
+tcp        0      0 10.1.152.229:35182      54.149.188.75:443       ESTABLISHED 1000       19360947   29400/firefox       
+tcp        0      1 10.1.152.229:51526      172.217.24.46:443       SYN_SENT    1000       3498922042 29400/firefox       
+```
+10. 如果需要过滤某个服务或用户,可以结合grep或watch指令使用
 
 # ss
 ## ss介绍
+ss-socket statistics
+类似netstat,统计socket信息,ss的优势在于它能够显示更多更详细的有关TCP和连接状态的信息，而且比netstat更快速更高效  
+当服务器的socket连接数量变得非常大时，无论是使用netstat命令还是直接cat /proc/net/tcp，执行速度都会很慢。  
+ss快的秘诀在于，它利用到了TCP协议栈中tcp_diag。tcp_diag是一个用于分析统计的模块，可以获得Linux 内核中第一手的信息，这就确保了ss的快捷高效。   
+## ss常见用法
+ss的参数类似netstat:  
+1. -a 显示所有socket
+2. -r 解析主机名(默认不解析)
+3. -m 显示socket memory使用情况
+```
+ss -am |head -n 10
+NetidState      Recv-Q Send-Q                                     Local Address:Port                                         Peer Address:Port                                                                                                  
+nl   UNCONN     0      0                                                   rtnl:avahi-daemon/6836                                        *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+nl   UNCONN     0      0                                                   rtnl:-2034236502                                              *                      	 skmem:(r0,rb425984,t0,tb65536,f0,w0,o0,bl0,d0)                                
+nl   UNCONN     0      0                                                   rtnl:systemd-resolve/860                                      *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+nl   UNCONN     0      0                                                   rtnl:packagekitd/1229                                         *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+nl   UNCONN     0      0                                                   rtnl:goa-daemon/3578                                          *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+nl   UNCONN     0      0                                                   rtnl:kernel                                                   *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+nl   UNCONN     0      0                                                   rtnl:firefox/29400                                            *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+nl   UNCONN     0      0                                                   rtnl:chrome/22570                                             *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+nl   UNCONN     0      0                                                   rtnl:whoopsie/1333                                            *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
+```
 
 
 参考:  
