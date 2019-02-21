@@ -1,6 +1,8 @@
 ---
 title: linux计算器和时间显示
+description: bc gnome-calculator cal ncal calendar
 toc: true
+tag: 计算器/日历
 ---
 # 计算器
 ## bc

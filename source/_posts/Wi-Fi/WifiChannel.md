@@ -1,5 +1,6 @@
 ---
 title: Wi-Fi频段速查
+tag: Wi-Fi
 ---
 
 # 2.4G 20M 信道与频率情况

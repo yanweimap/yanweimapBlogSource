@@ -1,7 +1,8 @@
 ---
-title: 网络常用工具命令1
-description: traceroute
+title: 网络常用工具命令(1)
+description: traceroute netstat ss命令
 toc: true
+tag: 网络命令
 ---
 # traceroute
 
@@ -158,7 +159,19 @@ nl   UNCONN     0      0                                                   rtnl:
 nl   UNCONN     0      0                                                   rtnl:chrome/22570                                             *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
 nl   UNCONN     0      0                                                   rtnl:whoopsie/1333                                            *                      	 skmem:(r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0)                               
 ```
+4. dst/src 匹配目的/源地址socket
+```
+$ss dst 10.1.6.11
+Netid              State                Recv-Q                Send-Q                                Local Address:Port                                Peer Address:Port                       
+tcp                ESTAB                20                    0                                      10.1.152.229:60804                                  10.1.6.11:microsoft-ds
+$ ss src 10.1.152.229
+Netid             State                    Recv-Q               Send-Q                              Local Address:Port                                 Peer Address:Port                      
+tcp               ESTAB                    0                    0                                    10.1.152.229:36916                                   10.1.6.26:microsoft-ds              
+tcp               SYN-SENT                 0                    1                                    10.1.152.229:34324                              172.217.24.206:https                     
+tcp               SYN-SENT                 0                    1                                    10.1.152.229:34388                              172.217.24.206:https
+```
 
+其他一些详细的参数请查询man ss
 
 参考:  
 1. [traceroute命令初探](https://www.cnblogs.com/beyond_dxb/p/8383821.html)  

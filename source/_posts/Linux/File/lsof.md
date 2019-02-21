@@ -1,6 +1,8 @@
 ---
 title: lsof命令 - List open files
 toc: true
+description: lsof应用介绍
+tag: lsof
 ---
 
 ## lsof介绍

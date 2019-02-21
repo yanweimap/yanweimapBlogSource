@@ -1,6 +1,8 @@
 ---
 title: 5 ways to kill process
+description: kill killall killall5 pkill xkill
 toc: true
+tag: kill
 ---
 # kill
 ## 命令格式
